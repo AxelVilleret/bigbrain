@@ -1,8 +1,5 @@
 package fr.ensim.interop.introrest.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 import fr.ensim.interop.introrest.model.weather.City;
 import fr.ensim.interop.introrest.model.weather.Meteo;
 import fr.ensim.interop.introrest.model.weather.OpenWeather;
-import fr.ensim.interop.introrest.model.weather.WeatherData;
 
 @RestController
 public class WeatherRestController {
