@@ -24,6 +24,7 @@ public class BotImpl implements Bot {
     public void onUpdatereceived(Update update) {
         String messageClient = update.getMessage().getText();
         Long idClient = update.getMessage().getFrom().getId();
+        Integer idMessage = update.getMessage().getMessageId();
         String[] splitedMessage = messageClient.split(" ");
         Executor e;
         switch (splitedMessage[0]) {
@@ -43,7 +44,7 @@ public class BotImpl implements Bot {
                 e = new DefaultExecutor();
                 break;
         }
-        e.sendText(idClient, e.execute(splitedMessage));
+        e.sendText(idClient, e.execute(splitedMessage), idMessage);
     }
     
 }
