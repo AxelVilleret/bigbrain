@@ -71,6 +71,5 @@ public class MessageRestController {
 		}
 		return restTemplate.getForEntity(telegramApiUrl + telegramApiToken + "/getUpdates?offset=" + offset,
 						ApiResponseUpdateTelegram.class);
-
 	}
 }

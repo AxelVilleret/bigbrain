@@ -12,10 +12,17 @@ public class ForecastsExecutor extends Executor {
         RestTemplate restTemplate = new RestTemplate();
         String response;
         String url;
-        if (commands.length == 2 || (commands.length >= 3 && !commands[2].equals("more"))) {
-            url = BotImpl.URL + "weather?ville=" + commands[1];
-        } else if (commands.length >= 3 && commands[2].equals("more")) {
-            url = BotImpl.URL + "weather?ville=" + commands[1] + "&more=more";
+        String ville = "";
+        if (commands.length >= 2 && !commands[commands.length-1].equals("more")) {
+            for (int i = 1; i < commands.length; i++) {
+                ville += commands[i] + " ";
+            }
+            url = BotImpl.URL + "weather?ville=" + ville;
+        } else if (commands.length >= 3 && commands[commands.length-1].equals("more")) {
+            for (int i = 1; i < commands.length-1; i++) {
+                ville += commands[i] + " ";
+            }
+            url = BotImpl.URL + "weather?ville=" + ville + "&more=more";
         } else {
             response = "Veuillez renseigner votre ville...";
             return response;

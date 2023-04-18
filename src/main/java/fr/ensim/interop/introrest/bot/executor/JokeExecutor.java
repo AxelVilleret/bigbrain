@@ -9,8 +9,13 @@ public class JokeExecutor extends Executor {
 
     @Override
     public String execute(String[] commands) {
+        String url = BotImpl.URL + "joke";
         RestTemplate restTemplate = new RestTemplate();
-        Joke joke = restTemplate.getForObject(BotImpl.URL + "joke", Joke.class);
+        if (commands.length >= 2) {
+            url += "?restriction=";
+            url += commands[1];
+        }
+        Joke joke = restTemplate.getForObject(url, Joke.class);
         return joke.toString();
     }
     
