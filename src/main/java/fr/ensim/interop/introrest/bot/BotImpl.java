@@ -17,7 +17,7 @@ public class BotImpl implements Bot {
 
 
     // public final static String URL = "http://localhost:9090/";
-    public final static String URL = "https://git.heroku.com/chabot-api-ensim.git/";
+    public final static String URL = "https://chabot-api-ensim.herokuapp.com/";
     
     public final static String[] INTROSMETEO = {"Pour la météo d'aujourd'hui:\n", "Pour la météo de demain:\n", "Pour la météo d'après-demain:\n"};
 
