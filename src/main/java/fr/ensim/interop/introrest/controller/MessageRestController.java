@@ -64,12 +64,19 @@ public class MessageRestController {
 	@GetMapping("/update")
 	public ResponseEntity<ApiResponseUpdateTelegram> getUpdates(
 			@RequestParam(name = "offset", required = false) String offset) {
+		
 		RestTemplate restTemplate = new RestTemplate();
-		if (offset == null) {
-			return restTemplate.getForEntity(telegramApiUrl + telegramApiToken + "/getUpdates",
-					ApiResponseUpdateTelegram.class);
-		}
-		return restTemplate.getForEntity(telegramApiUrl + telegramApiToken + "/getUpdates?offset=" + offset,
+		try {
+			if (offset == null) {
+				return restTemplate.getForEntity(telegramApiUrl + telegramApiToken + "/getUpdates",
 						ApiResponseUpdateTelegram.class);
+			}
+			return restTemplate.getForEntity(telegramApiUrl + telegramApiToken + "/getUpdates?offset=" + offset,
+					ApiResponseUpdateTelegram.class);
+			
+		} catch (RestClientException e) {
+			return ResponseEntity.badRequest().build();
+		}
+		
 	}
 }
