@@ -12,7 +12,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.ensim.interop.introrest.model.telegram.ApiResponseTelegram;
@@ -51,13 +50,10 @@ public class MessageRestController {
 				response = om.readValue(jsonArrayString,
 						om.getTypeFactory().constructParametricType(ApiResponseTelegram.class, Message.class));
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-			} catch (JsonMappingException e1) {
-				e1.printStackTrace();
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 			} catch (JsonProcessingException e1) {
 				e1.printStackTrace();
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-			}
+			} 
 		}
 	}
 	

@@ -42,7 +42,7 @@ public class Listener extends TimerTask {
 
     public boolean hasNext() {
         setNext();
-        return first == true || (next != null && !last.getUpdateId().equals(next.getUpdateId()));
+        return first || (next != null && !last.getUpdateId().equals(next.getUpdateId()));
     }
 
     @Override

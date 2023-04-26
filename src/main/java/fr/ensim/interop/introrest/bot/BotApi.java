@@ -1,6 +1,9 @@
 package fr.ensim.interop.introrest.bot;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
 import fr.ensim.interop.introrest.bot.executor.DefaultExecutor;
 import fr.ensim.interop.introrest.bot.executor.Executor;
@@ -8,23 +11,27 @@ import fr.ensim.interop.introrest.bot.executor.ForecastsExecutor;
 import fr.ensim.interop.introrest.bot.executor.HelloExecutor;
 import fr.ensim.interop.introrest.bot.executor.JokeExecutor;
 import fr.ensim.interop.introrest.bot.executor.NoticeExecutor;
-import fr.ensim.interop.introrest.model.telegram.Update;
 
 @Component
-public class BotImpl implements Bot {
+public class BotApi extends TelegramLongPollingBot {
+
+    
+    @Value("${telegram.bot.id}")
+    private String telegramApiToken;
+
+    @Value("${telegram.api.botusername}")
+    private String telegramApiBotUsername;
 
     public static final String HELLO = "/hello_world";
     public static final String FORECASTS = "/meteo";
     public static final String JOKE = "/blague";
     public static final String NOTICE = "/aide";
 
-    //public final static String URL = "http://localhost:9090/";
-    public static final String URL = "https://chabot-api-ensim.herokuapp.com/";
-    
-    public static final String[] INTROSMETEO = {"Pour la météo d'aujourd'hui:\n", "Pour la météo de demain:\n", "Pour la météo d'après-demain:\n"};
+    public static final String[] INTROSMETEO = { "Pour la météo d'aujourd'hui:\n", "Pour la météo de demain:\n",
+            "Pour la météo d'après-demain:\n" };
 
     @Override
-    public void onUpdatereceived(Update update) {
+    public void onUpdateReceived(Update update) {
         String messageClient = update.getMessage().getText();
         Long idClient = update.getMessage().getFrom().getId();
         Integer idMessage = update.getMessage().getMessageId();
@@ -48,6 +55,16 @@ public class BotImpl implements Bot {
                 break;
         }
         e.sendText(idClient, e.execute(splitedMessage), idMessage);
+    }
+
+    @Override
+    public String getBotToken() {
+        return telegramApiToken.substring(3);
+    }
+
+    @Override
+    public String getBotUsername() {
+        return telegramApiBotUsername;
     }
     
 }
