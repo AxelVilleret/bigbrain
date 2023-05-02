@@ -2,12 +2,12 @@ package fr.ensim.interop.introrest.bot;
 
 import org.springframework.stereotype.Component;
 
-import fr.ensim.interop.introrest.bot.executor.DefaultExecutor;
 import fr.ensim.interop.introrest.bot.executor.Executor;
 import fr.ensim.interop.introrest.bot.executor.ForecastsExecutor;
 import fr.ensim.interop.introrest.bot.executor.HelloExecutor;
 import fr.ensim.interop.introrest.bot.executor.JokeExecutor;
 import fr.ensim.interop.introrest.bot.executor.NoticeExecutor;
+import fr.ensim.interop.introrest.bot.executor.OpenAIExecutor;
 import fr.ensim.interop.introrest.model.telegram.Update;
 
 @Component
@@ -18,7 +18,7 @@ public class BotImpl implements Bot {
     public static final String JOKE = "/blague";
     public static final String NOTICE = "/aide";
 
-    //public final static String URL = "http://localhost:9090/";
+    // public final static String URL = "http://localhost:9090/";
     public static final String URL = "https://chabot-api-ensim.herokuapp.com/";
     
     public static final String[] INTROSMETEO = {"Pour la météo d'aujourd'hui:\n", "Pour la météo de demain:\n", "Pour la météo d'après-demain:\n"};
@@ -44,7 +44,7 @@ public class BotImpl implements Bot {
                 e = new NoticeExecutor();
                 break;
             default:
-                e = new DefaultExecutor();
+                e = new OpenAIExecutor();
                 break;
         }
         e.sendText(idClient, e.execute(splitedMessage), idMessage);

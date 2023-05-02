@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import fr.ensim.interop.introrest.bot.executor.DefaultExecutor;
 import fr.ensim.interop.introrest.bot.executor.Executor;
 import fr.ensim.interop.introrest.bot.executor.ForecastsExecutor;
 import fr.ensim.interop.introrest.bot.executor.HelloExecutor;
 import fr.ensim.interop.introrest.bot.executor.JokeExecutor;
 import fr.ensim.interop.introrest.bot.executor.NoticeExecutor;
+import fr.ensim.interop.introrest.bot.executor.OpenAIExecutor;
 
 @Component
 public class BotApi extends TelegramLongPollingBot {
@@ -51,7 +51,7 @@ public class BotApi extends TelegramLongPollingBot {
                 e = new NoticeExecutor();
                 break;
             default:
-                e = new DefaultExecutor();
+                e = new OpenAIExecutor();
                 break;
         }
         e.sendText(idClient, e.execute(splitedMessage), idMessage);
