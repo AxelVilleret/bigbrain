@@ -15,7 +15,7 @@ public class OpenAIExecutor extends Executor {
         }
 
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject(BotImpl.URL + "openai", stringBuilder.toString(), String.class);
+        return restTemplate.postForObject(BotImpl.URL + "openai/completions", stringBuilder.toString(), String.class);
 
     }
     

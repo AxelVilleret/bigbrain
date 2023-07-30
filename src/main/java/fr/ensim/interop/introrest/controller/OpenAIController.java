@@ -32,7 +32,7 @@ public class OpenAIController {
     @Value("${openai.api.token}")
     private String openaiApiToken;
 
-    @PostMapping("/openai")
+    @PostMapping("/openai/completions")
     public ResponseEntity<String> respondToMessage(@RequestBody String message) {
         try {
             RestTemplate restTemplate = new RestTemplate();

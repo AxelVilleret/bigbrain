@@ -4,6 +4,7 @@ public class Usage {
     public int prompt_tokens;
     public int completion_tokens;
     public int total_tokens;
+    
     public int getPrompt_tokens() {
         return prompt_tokens;
     }

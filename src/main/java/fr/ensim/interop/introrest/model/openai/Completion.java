@@ -9,6 +9,7 @@ public class Completion {
     public String model;
     public Usage usage;
     public ArrayList<Choice> choices;
+    
     public String getId() {
         return id;
     }

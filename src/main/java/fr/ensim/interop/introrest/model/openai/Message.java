@@ -3,6 +3,7 @@ package fr.ensim.interop.introrest.model.openai;
 public class Message {
     public String role;
     public String content;
+    
     public String getRole() {
         return role;
     }
