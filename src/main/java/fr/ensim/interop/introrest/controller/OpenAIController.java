@@ -1,6 +1,7 @@
 package fr.ensim.interop.introrest.controller;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
 
 import fr.ensim.interop.introrest.bot.BotImpl;
+import fr.ensim.interop.introrest.bot.Chats.Chats;
+import fr.ensim.interop.introrest.model.UserMessage;
 import fr.ensim.interop.introrest.model.openai.Completion;
 import fr.ensim.interop.introrest.model.openai.Message;
 import fr.ensim.interop.introrest.model.openai.Request;
@@ -21,10 +24,9 @@ import fr.ensim.interop.introrest.model.openai.Request;
 public class OpenAIController {
 
     private static final String MODEL = "gpt-3.5-turbo";
+    private static final String USER_ROLE = "user";
     private static final String ERRORMESSAGE = "Désolé mais ce n'est pas une action valide... Tapper " + BotImpl.NOTICE
             + " pour voir la notice";
-
-    private static final String INTRO = "(Tu es implémenté dans un chatbot nommé BigBrain qui devient ton nom. Réponds au message qui va suivre après la parenthèse et surtout ne parle plus d'OpenAI.)";
 
     @Value("${openai.api.url}")
     private String openaiApiUrl;
@@ -32,8 +34,10 @@ public class OpenAIController {
     @Value("${openai.api.token}")
     private String openaiApiToken;
 
+    private Chats chats = new Chats();
+
     @PostMapping("/openai/completions")
-    public ResponseEntity<String> respondToMessage(@RequestBody String message) {
+    public ResponseEntity<String> respondToMessage(@RequestBody UserMessage message) {
         try {
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
@@ -41,15 +45,17 @@ public class OpenAIController {
             headers.set("Content-Type", "application/json");
             Request request = new Request();
             request.setModel(MODEL);
-            ArrayList<Message> prompt = new ArrayList<>();
             Message msg = new Message();
-            msg.setContent(INTRO + message);
-            msg.setRole("user");
-            prompt.add(msg);
-            request.setMessages(prompt);
+            msg.setContent(message.getContent());
+            msg.setRole(USER_ROLE);
+            ArrayList<Message> chat = chats.addMessage(message.getUserId(), msg);
+            request.setMessages(chat);
             HttpEntity<Request> entity = new HttpEntity<>(request, headers);
+            
             ResponseEntity<Completion> completion = restTemplate.exchange(openaiApiUrl + "chat/completions",
                     HttpMethod.POST, entity, Completion.class);
+            
+            chats.addMessage(message.getUserId(), completion.getBody().getChoices().get(0).getMessage());
             return ResponseEntity.ok(completion.getBody().getChoices().get(0).getMessage().getContent());
 
         } catch (Exception e) {

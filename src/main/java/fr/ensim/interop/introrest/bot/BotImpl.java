@@ -44,7 +44,7 @@ public class BotImpl implements Bot {
                 e = new NoticeExecutor();
                 break;
             default:
-                e = new OpenAIExecutor();
+                e = new OpenAIExecutor(idClient);
                 break;
         }
         e.sendText(idClient, e.execute(splitedMessage), idMessage);

@@ -14,7 +14,6 @@ import fr.ensim.interop.introrest.bot.executor.OpenAIExecutor;
 
 @Component
 public class BotApi extends TelegramLongPollingBot {
-
     
     @Value("${telegram.bot.id}")
     private String telegramApiToken;
@@ -51,7 +50,7 @@ public class BotApi extends TelegramLongPollingBot {
                 e = new NoticeExecutor();
                 break;
             default:
-                e = new OpenAIExecutor();
+                e = new OpenAIExecutor(idClient);
                 break;
         }
         e.sendText(idClient, e.execute(splitedMessage), idMessage);
