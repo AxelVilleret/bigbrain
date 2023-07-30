@@ -18,8 +18,8 @@ public class BotImpl implements Bot {
     public static final String JOKE = "/blague";
     public static final String NOTICE = "/aide";
 
-    // public final static String URL = "http://localhost:9090/";
-    public static final String URL = "https://chabot-api-ensim.herokuapp.com/";
+    public final static String URL = "http://localhost:9090/";
+    // public static final String URL = "https://chabot-api-ensim.herokuapp.com/";
     
     public static final String[] INTROSMETEO = {"Pour la météo d'aujourd'hui:\n", "Pour la météo de demain:\n", "Pour la météo d'après-demain:\n"};
 
