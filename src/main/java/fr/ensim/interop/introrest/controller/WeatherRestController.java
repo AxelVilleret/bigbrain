@@ -48,7 +48,7 @@ public class WeatherRestController {
                                 OpenWeather.class, city.getLat(), city.getLon());
         }
 
-        @GetMapping("/weather")
+        @GetMapping("/weatherr")
         public ResponseEntity<Meteo[]> meteoByVille(
                         @RequestParam("ville") String nomVille,
                         @RequestParam(name = "more", required = false) String more) {
