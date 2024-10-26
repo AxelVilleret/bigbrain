@@ -1,4 +1,4 @@
-package fr.ensim.interop.introrest;
+package fr.ensim.interop.bigbrain;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("fr.ensim.interop.introrest"))
+                .apis(RequestHandlerSelectors.basePackage("fr.ensim.interop.bigbrain"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());

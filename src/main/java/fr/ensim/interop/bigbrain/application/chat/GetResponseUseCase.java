@@ -18,12 +18,10 @@ public class GetResponseUseCase {
     }
 
     public String execute(UserMessage userMessage) {
-        UserConversation conversation = conversationRepository.findConversationByUserId(userMessage.getUserId());
-        if (conversation == null) {
+        if (conversationRepository.isConversationEmpty(userMessage.getUserId())) {
             conversationRepository.addConversation(new UserConversation(userMessage.getUserId()));
-        } else {
-            System.out.println("Conversation : " + conversation);
         }
+        UserConversation conversation = conversationRepository.findConversationByUserId(userMessage.getUserId());
         String response = chatRepository.getResponse(userMessage.getContent(), conversation);
         conversationRepository.updateConversation(userMessage.getUserId(), userMessage.getContent(), response);
         return response;

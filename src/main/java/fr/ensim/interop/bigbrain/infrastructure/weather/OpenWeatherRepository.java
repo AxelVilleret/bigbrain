@@ -16,17 +16,17 @@ import fr.ensim.interop.bigbrain.infrastructure.weather.model.OpenWeather;
 public class OpenWeatherRepository implements WeatherRepository {
 
     @Value("${open.weather.api.url}")
-    private String openWeatherApiUrl;
+    private String URL;
 
     @Value("${open.weather.api.token}")
-    private String openWeatherApiToken;
+    private String TOKEN;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public City findCityByName(String cityName) {
         ResponseEntity<City[]> responseEntity = restTemplate.getForEntity(
-                openWeatherApiUrl + "geo/1.0/direct?q={cityName}&limit=3&appid=" + openWeatherApiToken,
+                URL + "geo/1.0/direct?q={cityName}&limit=3&appid=" + TOKEN,
                 City[].class, cityName);
         City[] cities = responseEntity.getBody();
         return (cities != null && cities.length > 0) ? cities[0] : null;
@@ -35,8 +35,8 @@ public class OpenWeatherRepository implements WeatherRepository {
     @Override
     public Meteo[] findWeatherByCity(City city, int days) {
         OpenWeather openWeather = restTemplate.getForObject(
-                openWeatherApiUrl + "data/2.5/forecast?lat={lat}&lon={lon}&units=metric&lang=fr&appid="
-                        + openWeatherApiToken,
+                URL + "data/2.5/forecast?lat={lat}&lon={lon}&units=metric&lang=fr&appid="
+                        + TOKEN,
                 OpenWeather.class, city.getLat(), city.getLon());
         if (openWeather == null) {
             return new Meteo[0];

@@ -32,5 +32,10 @@ public class InMemoryConversationRepository implements ConversationRepository {
         UserConversation conversation = conversations.get(userId);
         conversation.addMessage(content, response);
     }
+
+    @Override
+    public boolean isConversationEmpty(Long userId) {
+        return conversations.get(userId) == null;
+    }
     
 }

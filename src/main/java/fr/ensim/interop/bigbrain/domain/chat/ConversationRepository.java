@@ -7,5 +7,7 @@ public interface ConversationRepository {
     public void addConversation(UserConversation conversation);
 
     public void updateConversation(Long userId, String content, String response);
+
+    public boolean isConversationEmpty(Long userId);
     
 }

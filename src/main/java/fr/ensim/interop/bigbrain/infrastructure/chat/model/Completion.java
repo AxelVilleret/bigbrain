@@ -1,4 +1,4 @@
-package fr.ensim.interop.introrest.model.openai;
+package fr.ensim.interop.bigbrain.infrastructure.chat.model;
 
 import java.util.ArrayList;
 
