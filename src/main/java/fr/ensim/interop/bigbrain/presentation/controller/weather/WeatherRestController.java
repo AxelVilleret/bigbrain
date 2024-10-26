@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.ensim.interop.bigbrain.application.weather.GetWeatherUseCase;
 import fr.ensim.interop.bigbrain.domain.weather.Meteo;
+import fr.ensim.interop.bigbrain.util.Constants;
 
 @RestController
 public class WeatherRestController {
@@ -17,7 +18,7 @@ public class WeatherRestController {
         this.getWeatherUseCase = getWeatherUseCase;
     }
 
-    @GetMapping("/weather")
+    @GetMapping(Constants.WEATHER_API_ENDPOINT)
     public ResponseEntity<Meteo[]> getWeather(
             @RequestParam("city") String cityName,
             @RequestParam(name = "more", required = false) String more) {

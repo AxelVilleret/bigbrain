@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.ensim.interop.bigbrain.application.chat.GetResponseUseCase;
 import fr.ensim.interop.bigbrain.domain.chat.UserMessage;
+import fr.ensim.interop.bigbrain.util.Constants;
 
 @Controller
 public class ChatRestController {
@@ -19,7 +20,7 @@ public class ChatRestController {
         this.getResponseUseCase = getResponseUseCase;
     }
 
-    @GetMapping("/chat")
+    @GetMapping(Constants.CHAT_API_ENDPOINT)
     public ResponseEntity<Map<String, String>> getResponse(
             @RequestParam("content") String content,
             @RequestParam("userId") Long userId) 
