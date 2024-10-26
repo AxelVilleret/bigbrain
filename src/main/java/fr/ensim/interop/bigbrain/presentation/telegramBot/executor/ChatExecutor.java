@@ -1,8 +1,11 @@
 package fr.ensim.interop.bigbrain.presentation.telegramBot.executor;
 
+import org.springframework.stereotype.Component;
+
 import fr.ensim.interop.bigbrain.application.chat.GetResponseUseCase;
 import fr.ensim.interop.bigbrain.domain.chat.UserMessage;
 
+@Component
 public class ChatExecutor implements Executor {
 
     GetResponseUseCase getResponseUseCase;

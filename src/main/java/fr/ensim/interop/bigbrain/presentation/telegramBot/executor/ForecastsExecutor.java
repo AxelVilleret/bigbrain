@@ -1,8 +1,11 @@
 package fr.ensim.interop.bigbrain.presentation.telegramBot.executor;
 
+import org.springframework.stereotype.Component;
+
 import fr.ensim.interop.bigbrain.application.weather.GetWeatherUseCase;
 import fr.ensim.interop.bigbrain.domain.weather.Meteo;
 
+@Component
 public class ForecastsExecutor implements Executor {
 
     private final GetWeatherUseCase getWeatherUseCase;
